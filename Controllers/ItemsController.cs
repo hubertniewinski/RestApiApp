@@ -53,9 +53,9 @@ namespace Catalog.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult UpdateItem(Guid item, UpdateItemDto itemDto)
+        public ActionResult UpdateItem(Guid id, UpdateItemDto itemDto)
         {
-            var existingItem = repository.GetItem(item);
+            var existingItem = repository.GetItem(id);
 
             if(existingItem == null)
                 return NotFound();
