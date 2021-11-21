@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: catalog
-        image: catalog:v1
+        image: catalog:v2
         resources:
           limits:
             memory: "128Mi"
