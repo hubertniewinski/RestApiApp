@@ -12,12 +12,12 @@ namespace Catalog.Api.Controllers
 {
     [ApiController]
     [Route("items")]
-    public class ItemController : ControllerBase
+    public class ItemsController : ControllerBase
     {
         private readonly IItemsRepository repository;
-        private readonly ILogger<ItemController> logger;
+        private readonly ILogger<ItemsController> logger;
 
-        public ItemController(IItemsRepository repository, ILogger<ItemController> logger)
+        public ItemsController(IItemsRepository repository, ILogger<ItemsController> logger)
         {
             this.repository = repository;
             this.logger = logger;
