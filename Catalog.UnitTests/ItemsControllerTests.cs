@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Mvc;
 using FluentAssertions;
 using Catalog.Api.Dtos;
+using System.Collections.Generic;
 
 namespace Catalog.UnitTests{
     public class ItemsControllerTests
@@ -57,6 +58,29 @@ namespace Catalog.UnitTests{
             var result = await itemController.GetItemsAsync();
 
             result.Should().BeEquivalentTo(expectedItems); 
+        }
+
+        [Fact]
+        public async Task GetItemsAsync_WithMatchingItems_ReturnsMatchingItems()
+        {
+            var allItems = new[]
+            {
+                new Item(){Name = "Potion"},
+                new Item(){Name = "Antidote"},
+                new Item(){Name = "Hi-Potion"}
+            };
+            
+            var nameToMatch = "Potion";
+
+            repositoryStub.Setup(repo => repo.GetItemsAsync()).ReturnsAsync(allItems);
+
+            var itemController = new ItemsController(repositoryStub.Object, loggerStub.Object);
+
+            IEnumerable<ItemDto> foundItems = await itemController.GetItemsAsync(nameToMatch);
+
+            foundItems.Should().OnlyContain(
+                item => item.Name == allItems[0].Name || item.Name == allItems[2].Name
+            );
         }
 
         [Fact]

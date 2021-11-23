@@ -1,11 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Catalog.Api",
     "\\Catalog.Api\\Entities",
-    "\\Catalog.Api\\Properties",
-    "\\Catalog.UnitTests"
+    "\\Catalog.Api\\Properties"
   ],
-  "SelectedNode": "\\Catalog.Api\\Program.cs",
   "PreviewInSolutionExplorer": false
 }
