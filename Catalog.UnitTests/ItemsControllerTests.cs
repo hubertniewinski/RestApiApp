@@ -42,9 +42,7 @@ namespace Catalog.UnitTests{
 
             var result = await itemController.GetItemAsync(System.Guid.NewGuid());
 
-            result.Value.Should().BeEquivalentTo(
-                item,
-                options => options.ComparingByMembers<Item>()); 
+            result.Value.Should().BeEquivalentTo(item); 
         }
 
         [Fact]
@@ -58,18 +56,16 @@ namespace Catalog.UnitTests{
 
             var result = await itemController.GetItemsAsync();
 
-            result.Should().BeEquivalentTo(
-                expectedItems,
-                options => options.ComparingByMembers<Item>()); 
+            result.Should().BeEquivalentTo(expectedItems); 
         }
 
         [Fact]
         public async Task CreateItemAsync_WithItemToCreate_ReturnsCreatedItem()
         {
-            var itemToCreate = new CreateItemDto(){
-                Name = Guid.NewGuid().ToString(),
-                Price = rand.Next(1000)
-            };
+            var itemToCreate = new CreateItemDto(
+                Guid.NewGuid().ToString(), 
+                Guid.NewGuid().ToString(), 
+                rand.Next(1,1000));
 
             var itemController = new ItemsController(repositoryStub.Object, loggerStub.Object);
 
@@ -95,10 +91,10 @@ namespace Catalog.UnitTests{
                 .ReturnsAsync(item);
 
             var itemId = item.Id;
-            var itemToUpdate = new UpdateItemDto(){
-                Name = Guid.NewGuid().ToString(),
-                Price = item.Price + 3
-            };
+            var itemToUpdate = new UpdateItemDto(
+                Guid.NewGuid().ToString(), 
+                Guid.NewGuid().ToString(),
+                item.Price + 3);
 
             var itemController = new ItemsController(repositoryStub.Object, loggerStub.Object);
 
