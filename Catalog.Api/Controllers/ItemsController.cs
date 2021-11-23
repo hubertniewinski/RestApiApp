@@ -24,13 +24,13 @@ namespace Catalog.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<ItemDto>> GetItemsAsync(string nameToMatch = null)
+        public async Task<IEnumerable<ItemDto>> GetItemsAsync(string name = null)
         {
             var items = (await repository.GetItemsAsync()).
                         Select(item => item.AsDto());
 
-            if(!string.IsNullOrEmpty(nameToMatch)){
-                items = items.Where(item => item.Name.Contains(nameToMatch, StringComparison.OrdinalIgnoreCase));
+            if(!string.IsNullOrEmpty(name)){
+                items = items.Where(item => item.Name.Contains(name, StringComparison.OrdinalIgnoreCase));
             }
 
             logger.LogInformation($"{DateTime.UtcNow.ToString("hh:mm:ss")}: Retrieved {items.Count()}: items");
